@@ -1,6 +1,6 @@
 use paho_mqtt as mqtt;
 
-fn main() -> mqtt::Result<()> {
+fn main() {
     println!("Creating new client...");
 
     let server_uri = "ssl://nam1.cloud.thethings.network:8883";
@@ -13,10 +13,9 @@ fn main() -> mqtt::Result<()> {
     println!("Password: {}", password);
     println!("Subscribe Topic: {}", subscribe_topic);
 
-    let client = mqtt::AsyncClient::new(server_uri)?;
+    let client = mqtt::AsyncClient::new(server_uri).expect("Failed to create client");
 
     let conn_opts = mqtt::ConnectOptionsBuilder::new()
-        .server_uris(&[server_uri])
         .keep_alive_interval(std::time::Duration::from_secs(30))
         .clean_session(true)
         .user_name(username)
@@ -24,17 +23,26 @@ fn main() -> mqtt::Result<()> {
         .finalize();
 
     println!("Connecting to the MQTT broker...");
-    client.connect(conn_opts)?;
+    let conn_token = client.connect(conn_opts);
+    if let Err(e) = conn_token.wait() {
+        panic!("Failed to connect to the broker: {:?}", e);
+    }
 
     println!("Successfully connected to the broker!");
     println!("Subscribing to the topic: {}", subscribe_topic);
 
-    client.subscribe(subscribe_topic, 0)?;
+    let sub_token = client.subscribe(subscribe_topic, 0);
+    if let Err(e) = sub_token.wait() {
+        panic!("Failed to subscribe to the topic: {:?}", e);
+    }
 
     let stream = client.start_consuming();
     while let Ok(Some(message)) = stream.try_recv() {
         println!("Received message: {:?}", message.payload_str());
     }
 
-    Ok(client.disconnect(None)?)
+    let disc_token = client.disconnect(None);
+    if let Err(e) = disc_token.wait() {
+        panic!("Failed to disconnect from the broker: {:?}", e);
+    }
 }

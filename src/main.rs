@@ -3,8 +3,8 @@ use paho_mqtt as mqtt;
 fn main() {
     println!("Creating new client...");
 
-    let server_uri = "ssl://nam1.cloud.thethings.network:8883";
-    let username = "uva-engineers-way-sensors@ttn";
+    let server_uri = "mqtt://nam1.cloud.thethings.network:1883";
+    let username = "uva-engineers-way-sensors";
     let password = "NNSXS.H74NN25HX2EFPPAH5JMMZXJBDRQP3KIBMOIF3RI.FLFWZZDQPJVUA4Z2FKZG6RRQNJC37I2B5BTZ464YY5P5OG2M47EQ";
     let subscribe_topic = "v3/uva-engineers-way-sensors@ttn/devices/+/up";
 

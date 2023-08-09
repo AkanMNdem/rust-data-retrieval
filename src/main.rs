@@ -15,9 +15,9 @@ fn main() {
     println!("Subscribe Topic: {}", subscribe_topic);
 
     let ssl_opts = mqtt::SslOptionsBuilder::new()
-        .trust_store("/Users/akanndem/.cargo/git/checkouts/paho.mqtt.rust-44b07fd42c95bba6/058c4f8/paho-mqtt-sys/paho.mqtt.c/test/ssl/capath/test-root-ca.pem")
+        .trust_store("/Users/akanndem/.cargo/registry/src/github.com-1ecc6299db9ec823/paho-mqtt-sys-0.8.1/paho.mqtt.c/test/ssl/capath/test-root-ca.pem")
         .expect("failed to set trust store")// Replace with your trust store path
-        .key_store("/Users/akanndem/.cargo/git/checkouts/paho.mqtt.rust-44b07fd42c95bba6/058c4f8/paho-mqtt-sys/paho.mqtt.c/test/ssl/client.pem")// Replace with your key store path
+        .key_store("/Users/akanndem/.cargo/registry/src/github.com-1ecc6299db9ec823/paho-mqtt-sys-0.8.1/paho.mqtt.c/test/ssl/client.pem")// Replace with your key store path
         .expect("failed to set key store")
         .finalize();
 

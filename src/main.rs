@@ -1,5 +1,6 @@
 //use openssl::ssl::{SslMethod, SslConnector};
 use paho_mqtt as mqtt;
+use serde_json::Value;
 
 fn main() {
     println!("Creating new client...");
@@ -57,6 +58,7 @@ fn main() {
         Err(e) => {
             println!("Error: {:?}", e);
         }
+
     }
 
     // loop {

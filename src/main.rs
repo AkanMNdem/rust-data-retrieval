@@ -50,7 +50,16 @@ fn main() {
 
     match stream.recv() {
         Ok(Some(message)) => {
-            println!("Received message: {:?}", message.payload_str());
+            let payload = message.payload_str();
+            println!("Received message: {:?}", payload);
+
+            // Parse the string of data into a serde_json::Value.
+            let v: Value = serde_json::from_str(&payload).expect("Failed to parse JSON");
+
+            // Convert the serde_json::Value back to a String of JSON.
+            let pretty_payload = serde_json::to_string_pretty(&v).expect("Failed to generate pretty JSON");
+
+            println!("{}", pretty_payload);
         }
         Ok(None) => {
             println!("No message received.");
@@ -58,7 +67,6 @@ fn main() {
         Err(e) => {
             println!("Error: {:?}", e);
         }
-
     }
 
     // loop {

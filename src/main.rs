@@ -1,4 +1,4 @@
-mod JSON_parsing;
+mod json_parsing;
 
 //use openssl::ssl::{SslMethod, SslConnector};
 use paho_mqtt as mqtt;

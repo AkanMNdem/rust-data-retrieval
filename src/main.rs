@@ -55,13 +55,17 @@ fn main() {
             let payload = message.payload_str();
             println!("Received message: {:?}", payload);
 
-            // Parse the string of data into a serde_json::Value.
-            let v: Value = serde_json::from_str(&payload).expect("Failed to parse JSON");
-
-            // Convert the serde_json::Value back to a String of JSON.
-            let pretty_payload = serde_json::to_string_pretty(&v).expect("Failed to generate pretty JSON");
-
-            println!("{}", pretty_payload);
+            // Use the parser to extract the desired data structure.
+            match json_parsing::parse_payload(&payload) {
+                Ok(parsed_data) => {
+                    // Here, `parsed_data` is of type `Payload` from your parser module.
+                    // You can access its fields directly.
+                    println!("Parsed Data: {:?}", parsed_data);
+                },
+                Err(e) => {
+                    println!("Failed to parse the payload: {:?}", e);
+                }
+            }
         }
         Ok(None) => {
             println!("No message received.");
@@ -70,6 +74,7 @@ fn main() {
             println!("Error: {:?}", e);
         }
     }
+
 
     // loop {
     //     if std::time::Instant::now() - start_time >= max_duration {

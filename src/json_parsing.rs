@@ -1,4 +1,7 @@
 use serde::{Serialize, Deserialize};
+use std::collections::HashMap;
+use serde_json::Value;
+
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TTNPayload {
@@ -19,18 +22,9 @@ struct DeviceIDs {
 #[derive(Debug, Serialize, Deserialize)]
 struct UplinkMessage {
     #[serde(rename = "decoded_payload")]
-    decoded_payload: DecodedPayload,
+    decoded_payload: HashMap<String, Value>, // Use a HashMap for dynamic fields
     #[serde(rename = "rx_metadata")]
     rx_metadata: Vec<RxMetadata>,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-struct DecodedPayload {
-    #[serde(rename = "temperature_celsius")]
-    temperature_celsius: Option<f32>,
-    #[serde(rename = "humidity_percent")]
-    humidity_percent: Option<f32>,
-    // Add other fields as needed
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -47,4 +41,17 @@ struct GatewayIDs {
 
 pub fn parse_payload(json_str: &str) -> Result<TTNPayload, serde_json::Error> {
     serde_json::from_str(json_str)
+}
+
+// Function that helps extract dynamic fields from the uplink message
+pub fn extract_numeric_fields(payload: &TTNPayload) -> HashMap<String, f64> {
+    let mut numeric_fields = HashMap::new();
+    for (key, value) in payload.uplink_message.decoded_payload.iter() {
+        if let Value::Number(num) = value {
+            if let Some(n) = num.as_f64() {
+                numeric_fields.insert(key.clone(), n);
+            }
+        }
+    }
+    numeric_fields
 }

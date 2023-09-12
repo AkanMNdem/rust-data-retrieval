@@ -58,8 +58,6 @@ fn main() {
             // Use the parser to extract the desired data structure.
             match json_parsing::parse_payload(&payload) {
                 Ok(parsed_data) => {
-                    // Here, `parsed_data` is of type `Payload` from your parser module.
-                    // You can access its fields directly.
                     println!("Parsed Data: {:?}", parsed_data);
                 },
                 Err(e) => {

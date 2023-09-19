@@ -1,6 +1,4 @@
 mod json_parsing;
-
-//use openssl::ssl::{SslMethod, SslConnector};
 use paho_mqtt as mqtt;
 use serde_json::Value;
 
@@ -47,8 +45,6 @@ fn main() {
     }
 
     let stream = client.start_consuming();
-    // let start_time = std::time::Instant::now();
-    // let max_duration = std::time::Duration::from_secs(600); // Exit after 10 minutes
 
     match stream.recv() {
         Ok(Some(message)) => {
@@ -72,24 +68,4 @@ fn main() {
             println!("Error: {:?}", e);
         }
     }
-
-
-    // loop {
-    //     if std::time::Instant::now() - start_time >= max_duration {
-    //         break;
-    //     }
-    //
-    //     match stream.try_recv() {
-    //         Ok(Some(message)) => {
-    //             println!("Received message: {:?}", message.payload_str());
-    //         }
-    //         Ok(None) => {
-    //             std::thread::sleep(std::time::Duration::from_secs(60)); // Sleep for 1 minute
-    //         }
-    //         Err(e) => {
-    //             println!("Error: {:?}", e);
-    //             std::thread::sleep(std::time::Duration::from_secs(60)); // Sleep for 1 minute
-    //         }
-    //     }
-    // }
 }

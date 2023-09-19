@@ -43,7 +43,7 @@ pub fn parse_payload(json_str: &str) -> Result<TTNPayload, serde_json::Error> {
     serde_json::from_str(json_str)
 }
 
-// Function that helps extract dynamic fields from the uplink message//
+// Function that helps extract dynamic fields from the uplink message
 pub fn extract_numeric_fields(payload: &TTNPayload) -> HashMap<String, f64> {
     let mut numeric_fields = HashMap::new();
     for (key, value) in payload.uplink_message.decoded_payload.iter() {

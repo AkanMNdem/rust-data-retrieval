@@ -46,9 +46,9 @@ pub fn parse_payload(json_str: &str) -> Result<TTNPayload, serde_json::Error> {
 pub fn extract_metadata(payload: &TTNPayload) -> HashMap<String, Value> {
     let mut metadata = HashMap::new();
 
-    // // Find the best RSSI gateway
-    // let best_rssi_metadata = payload.uplink_message.rx_metadata.iter()
-    //     .max_by_key(|meta| meta.rssi);
+    // Finding the best RSSI gateway
+    let best_rssi_metadata = payload.uplink_message.rx_metadata.iter()
+        .max_by_key(|meta| meta.rssi);
 
     if let Some(best_rssi_meta) = best_rssi_metadata {
         metadata.insert("rssi".to_string(), Value::Number(best_rssi_meta.rssi.into()));

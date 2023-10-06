@@ -13,6 +13,12 @@ pub struct TTNPayload {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
+struct LoRa_data_points{
+    #[serde(rename = "spreading_factor" )]
+    spreading_factor: u32,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
 struct DeviceIDs {
     #[serde(rename = "dev_eui")]
     dev_eui: String,
@@ -22,8 +28,7 @@ struct DeviceIDs {
 struct UplinkMessage {
     #[serde(rename = "decoded_payload")]
     decoded_payload: HashMap<String, Value>, // Use a HashMap for dynamic fields
-    #[serde(rename = "rx_metadata")]
-    rx_metadata: Vec<RxMetadata>,
+    // x
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -43,6 +48,10 @@ pub fn parse_payload(json_str: &str) -> Result<TTNPayload, serde_json::Error> {
     serde_json::from_str(json_str)
 }
 
+pub fn extract_lora_data_points(payload: &TTNPayload) ->
+
+// This function parses the metadata and stores it in a HashMap with a string for the field's
+// name and its value. Is currently not used
 pub fn extract_metadata(payload: &TTNPayload) -> HashMap<String, Value> {
     let mut metadata = HashMap::new();
 
@@ -62,7 +71,7 @@ pub fn extract_metadata(payload: &TTNPayload) -> HashMap<String, Value> {
     metadata
 }
 
-// Function that helps extract dynamic fields from the uplink message
+// Function that helps extract dynamic fields from the uplink message; Currently is not used
 pub fn extract_numeric_fields(payload: &TTNPayload) -> HashMap<String, f64> {
     let mut numeric_fields = HashMap::new();
     for (key, value) in payload.uplink_message.decoded_payload.iter() {

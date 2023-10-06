@@ -38,13 +38,12 @@ fn main() {
 
     println!("Successfully connected to the broker!");
     println!("Subscribing to the topic: {}", subscribe_topic);
-
+    let stream = client.start_consuming();
     let sub_token = client.subscribe(subscribe_topic, 0);
     if let Err(e) = sub_token.wait() {
         panic!("Failed to subscribe to the topic: {:?}", e);
     }
 
-    let stream = client.start_consuming();
 
     match stream.recv() {
         Ok(Some(message)) => {

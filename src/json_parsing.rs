@@ -112,7 +112,7 @@ pub fn extract_metadata(payload: &TTNPayload) -> HashMap<String, Value> {
         metadata.insert("gateway_id".to_string(), Value::String(best_rssi_meta.gateway_ids.gateway_id.clone()));
     }
 
-    metadata.insert("received_time".to_string(), Value::String(payload.received_at.clone()));
+    metadata.insert("received_time".to_string(), Value::String(payload.uplink_message.received_at.clone()));
     metadata.insert("device_id".to_string(), Value::String(payload.end_device_ids.dev_eui.clone()));
     metadata.insert("receiver".to_string(), Value::String("http-ttn-mqtt".to_string()));
 

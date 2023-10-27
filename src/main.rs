@@ -10,11 +10,6 @@ fn main() {
     let password = "NNSXS.H74NN25HX2EFPPAH5JMMZXJBDRQP3KIBMOIF3RI.FLFWZZDQPJVUA4Z2FKZG6RRQNJC37I2B5BTZ464YY5P5OG2M47EQ";
     let subscribe_topic = "v3/uva-engineers-way-sensors@ttn/devices/+/up";
 
-    // println!("Server URI: {}", server_uri);
-    // println!("Username: {}", username);
-    // println!("Password: {}", password);
-    // println!("Subscribe Topic: {}", subscribe_topic);
-
     let ssl_opts = mqtt::SslOptionsBuilder::new()
         .trust_store("/Users/akanndem/Downloads/letsencrypt_truststore.pem") // Path to the combined trust store
         .expect("failed to set trust store")
@@ -54,6 +49,7 @@ fn main() {
             match json_parsing::parse_payload(&payload) {
                 Ok(parsed_data) => {
                     println!("Parsed Data: {:?}", parsed_data);
+
                 },
                 Err(e) => {
                     println!("Failed to parse the payload: {:?}", e);

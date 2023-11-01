@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use std::collections::HashMap;
 use serde_json::Value;
-use std::mem::size_of;
+
 
 #[derive(Debug, Deserialize)]
 pub struct TTNPayload {

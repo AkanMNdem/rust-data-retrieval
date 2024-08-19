@@ -1,4 +1,4 @@
-# TTN Data Retrieval
+# Rust Based Data Retrieval
 
 ## Overview
 TTN Data Retrieval is a Rust-based application developed as part of an undergraduate research project. It connects to The Things Network (TTN) via MQTT, retrieves data, and parses it for analysis. This project demonstrates the integration of IoT data streams with backend services.

@@ -1,12 +1,53 @@
-# Rust Based Data Retrieval
+# Rust-Based Data Retrieval
 
 ## Overview
-A Rust-based application developed as part of an undergraduate research project. It connects to The Things Network (TTN) via MQTT, retrieves data, and parses it for analysis. This project demonstrates the integration of IoT data streams with backend services.
+This project is a Rust-based application designed for IoT data retrieval and processing, focusing on integration with The Things Network (TTN) using MQTT. It is part of an undergraduate research initiative to enhance IoT data handling and analysis.
 
 ## Features
-- **MQTT Connection**: Securely connects to The Things Network using MQTT.
-- **Data Retrieval**: Receives and processes data packets from IoT devices.
-- **JSON Parsing**: Custom parsing of JSON payloads from TTN messages.
+- **MQTT Connectivity**: Securely connects to TTN via the `paho-mqtt` library with SSL/TLS support.
+- **IoT Data Retrieval**: Subscribes to device topics for real-time data acquisition.
+- **JSON Parsing**: Utilizes `serde` and `serde_json` for efficient payload parsing and metadata extraction.
 
-## Project Status
-This repository is part of an ongoing undergraduate research project. It is not intended for general use, and we are currently not seeking external contributions. The repository serves as a record of work in progress and a platform for collaboration among project members.
+## Technologies Used
+- **Programming Language**: Rust
+- **Libraries**:
+  - `paho-mqtt`: For MQTT connectivity.
+  - `serde`, `serde_json`: For JSON serialization and deserialization.
+  - `openssl`: For SSL/TLS functionality.
+
+## Project Structure
+- **`src/main.rs`**:
+  - Sets up MQTT client and manages topic subscriptions.
+  - Integrates JSON parsing for payload processing.
+- **`src/json_parsing.rs`**:
+  - Defines data structures like `TTNPayload` and `UplinkMessage`.
+  - Implements parsing logic for IoT metadata and uplink messages.
+- **`Cargo.toml`**:
+  - Specifies dependencies for MQTT, JSON, and SSL support.
+
+## Getting Started
+
+### Clone the Repository
+```bash
+git clone https://github.com/AkanMNdem/rust-data-retrieval.git
+cd rust-data-retrieval
+```
+
+### Install Dependencies
+Ensure Rust and Cargo are installed, then build the project:
+```bash
+cargo build
+```
+
+### Run the Application
+Execute the application with:
+```bash
+cargo run
+```
+
+## Limitations
+- **Work in Progress**: This project is part of ongoing research and not production-ready.
+- **Not Open for Contributions**: The repository is maintained for research collaboration purposes.
+
+## License
+This repository is intended for research purposes only and does not include an open-source license for general use.
